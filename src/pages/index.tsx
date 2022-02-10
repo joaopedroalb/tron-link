@@ -1,15 +1,29 @@
-import styles from '../styles/home.module.scss'
+import styles from "../styles/home.module.scss";
+import {useState} from 'react'
 
 function HomePage() {
-    return (
-      <div className={styles.containerBg}>
-        <h1>Web3 Project</h1>
+  const [address,setaddress] = useState<null|string>(null)
 
-        <div className={styles.btnContainer}>
-          <button>Connect</button>
-        </div>
-      </div>
-    )
+  const w:any = window
+
+  const getTronWeb =  async() =>{
+    if(w.tronWeb && w.tronWeb.defaultaddresss.base58){
+      setaddress(w.tronWeb.defaultaddresss.base58);
+    }else{
+      console.log('deu ruim')
+    }
   }
-  
-  export default HomePage
+
+  return (
+    <div className={styles.containerBg}>
+      <h1>Web3 Project</h1>
+
+      <div className={styles.btnContainer}>
+        <button onClick={getTronWeb}>Connect</button>
+        <p>{address&&`Seu enderço é ${address}`}</p>
+      </div>
+    </div>
+  );
+}
+
+export default HomePage;
