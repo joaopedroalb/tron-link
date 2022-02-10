@@ -5,14 +5,17 @@ declare var window: any
 
 function HomePage() {
   const [address,setaddress] = useState<null|string>(null)
+  const [loaded, setLoaded] = useState(false)
 
   const getTronWeb =  async() =>{
     if(window){
       if(window.tronWeb && window.tronWeb.defaultAddress.base58){
         setaddress(window.tronWeb.defaultAddress.base58);
       }else{
-        console.log('deu ruim')
+        setaddress(null)
       }
+
+      setLoaded(true)
     }
   }
 
@@ -22,7 +25,9 @@ function HomePage() {
 
       <div className={styles.btnContainer}>
         <button onClick={getTronWeb}>Connect</button>
-        <p>{address&&`Seu enderço é ${address}`}</p>
+        {
+          loaded&&<p>{address ? `Seu enderço é ${address}`:'Por favor logue com a tron link'}</p>
+        }
       </div>
     </div>
   );
