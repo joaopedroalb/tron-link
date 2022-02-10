@@ -1,16 +1,18 @@
 import styles from "../styles/home.module.scss";
 import {useState} from 'react'
 
+declare var window: any
+
 function HomePage() {
   const [address,setaddress] = useState<null|string>(null)
 
-  const w:any = window
-
   const getTronWeb =  async() =>{
-    if(w.tronWeb && w.tronWeb.defaultaddresss.base58){
-      setaddress(w.tronWeb.defaultaddresss.base58);
-    }else{
-      console.log('deu ruim')
+    if(window){
+      if(window.tronWeb && window.tronWeb.defaultAddress.base58){
+        setaddress(window.tronWeb.defaultAddress.base58);
+      }else{
+        console.log('deu ruim')
+      }
     }
   }
 
